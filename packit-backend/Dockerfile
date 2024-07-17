@@ -8,12 +8,11 @@ WORKDIR /app
 COPY gradlew ./
 COPY gradle ./gradle  
 
-
 # Copy the application code
 COPY . .
 
 # Build the application with Gradle
-RUN gradlew clean build
+RUN ./gradlew clean build
 
 # Use the lightweight Distroless base image
 FROM gcr.io/distroless/java17:nonroot
