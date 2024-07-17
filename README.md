@@ -4,7 +4,7 @@ Welcome to the PackIt project! PackIt is a Link Shortener application build with
 
 ### Prerequisites
 Make sure you have the following installed:
-- [Java 11+](https://adoptopenjdk.net/): Programming Language and runtime environment.
+- [Java 17+](https://adoptopenjdk.net/): Programming Language and runtime environment.
 - [Node.js 14+](https://nodejs.org/): Javascript runtime environment.
 - [Docker](https://www.docker.com/): A platform to build, share, and run applications in containers.
 - [Git](https://git.scm.com/): Version control system for tracking changes in source code, facilitating collaboration and version management.
@@ -40,30 +40,36 @@ To run the PackIt project locally, follow these steps:
 Firstly, clone the repository to your local machine:
     ```bash
     git clone https://github.com/Motouom/PackIt.git
-    cd packit
+    cd PackIt
     ```
 
 #### Backend Setup
 Navigate to the `backend` directory and set up the Spring Boot application: 
 
-1. Nagative to the backend directory:
+1. Navigate to the backend directory:
     ```bash
-    cd backend
+    cd packit-backend
     ```
-    
+
 2. Build the project with Gradle:
     ```bash
     ./gradlew build
     ```
 
-3. Run the application:
+3. Clean the build environment:
+    ```bash
+    gradle clean
+    ```
+
+4. Run the application:
     ```bash
     ./gradlew bootrun
+    ```
 
 #### Frontend 
 1. Navigate to the frontend repository:
     ```bash
-    cd ../frontend
+    cd ../PackIt-frontend
     ```
 
 2. Install the dependencies:
