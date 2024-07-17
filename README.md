@@ -27,7 +27,7 @@ Follow the steps below to set up a local environment:
     curl -s "https://get.sdkman.io" | bash
     ```
 
-4.Install Java and Gradle using sdkman:
+4. Install Java and Gradle using sdkman:
    ```bash
    sdk install java
    sdk install gradle
@@ -66,7 +66,7 @@ Navigate to the `backend` directory and set up the Spring Boot application:
     ./gradlew bootrun
     ```
 
-#### Frontend 
+#### Frontend Setup
 1. Navigate to the frontend repository:
     ```bash
     cd ../PackIt-frontend
@@ -77,7 +77,12 @@ Navigate to the `backend` directory and set up the Spring Boot application:
     npm install
     ```
 
-3. Start the development server:
+3. Build the frontend assets for production:
+    ```bash
+    npm run build
+    ```
+
+4. Start the development server:
     ```bash
     npm run dev
     ```
