@@ -1,0 +1,103 @@
+name: Build PackIt Backend
+
+on:
+  push:
+    branches:
+      - '**' 
+    tags-ignore: 
+      - 'v*'
+    paths:
+      - 'packit-backend/**'
+      - '.github/workflows/ci-cd-backend.yml'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}-backend
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packit-backend
+    
+    steps:
+      - name: Clone the project
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17 (GraalVM)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt-openj9'
+          java-version: '17'
+      
+      - name: Setup Kotlin
+        uses: actions/setup-java@v4
+        with:
+            distribution: 'temurin'
+            java-version: '17'
+  
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+            gradle-version: '7.2'
+
+      - name: Build with Gradle
+        run: ./gradlew clean build -x test --warning-mode all
+        
+      - name: List contents of build/libs directory
+        run: ls -la
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: packit-backend
+          path: packit-backend/build/libs
+
+  docker-build:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packit-backend
+    
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Clone the project
+        uses: actions/checkout@v4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4 
+        with:
+          name: packit-backend
+          path: packit-backend/build/libs
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - id: lowercase_name
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ env.IMAGE_NAME }}
+ 
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5 
+        with:
+          images: ${{ env.REGISTRY }}/${{ steps.lowercase_name.outputs.lowercase }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./packit-backend
+          push: "${{ github.ref == 'refs/heads/main' && 'true' || 'false' }}"
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
