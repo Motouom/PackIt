@@ -5,8 +5,14 @@ on:
     branches:
       - '**' 
     tags-ignore: 
-      - 'v*'
+      - 'v*' 
     paths:
+      - 'packit-backend/**'
+      - '.github/workflows/ci-cd-backend.yml'
+  pull_request: 
+      branches:
+        - '**'
+      paths:
       - 'packit-backend/**'
       - '.github/workflows/ci-cd-backend.yml'
 
