@@ -2,18 +2,18 @@
 FROM ghcr.io/graalvm/graalvm-ce:22.3.2 AS builder
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /app 
+
 
 # Copy the Gradle wrapper
 COPY gradlew ./
 COPY gradle ./gradle  
 
-
 # Copy the application code
-COPY . .
+COPY . . 
 
 # Build the application with Gradle
-RUN gradlew clean build
+RUN ./gradlew clean build
 
 # Use the lightweight Distroless base image
 FROM gcr.io/distroless/java17:nonroot
