@@ -37,7 +37,7 @@ Follow the steps below to set up a local environment:
 To run the PackIt project locally, follow these steps:
 
 ##### Clone the repository
-Firstly, clone the repository to your local machine:
+1. Firstly, clone the repository to your local machine:
     ```bash
     git clone https://github.com/Motouom/PackIt.git
     cd PackIt
@@ -77,7 +77,7 @@ Navigate to the `backend` directory and set up the Spring Boot application:
     npm install
     ```
 
-3.Start the development server:
+3. Start the development server:
     ```bash
     npm run dev
     ```
