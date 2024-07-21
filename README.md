@@ -4,7 +4,7 @@ Welcome to the PackIt project! PackIt is a Link Shortener application build with
 
 ### Prerequisites
 Make sure you have the following installed:
-- [Java 17+](https://adoptopenjdk.net/): Programming Language and runtime environment.
+- [GraalVM](https://www.graalvm.org/): High-performance runtime that provides support for multiple languages including Java and Kotlin.
 - [Node.js 14+](https://nodejs.org/): Javascript runtime environment.
 - [Docker](https://www.docker.com/): A platform to build, share, and run applications in containers.
 - [Git](https://git.scm.com/): Version control system for tracking changes in source code, facilitating collaboration and version management.
@@ -27,10 +27,11 @@ Follow the steps below to set up a local environment:
     curl -s "https://get.sdkman.io" | bash
     ```
 
-4. Install Java and Gradle using sdkman:
+4. Install GraaLVM and Gradle using sdkman:
    ```bash
-   sdk install java
-   sdk install gradle
+    sdk install java 22.3.r17-grl
+    sdk use java 22.3.r17-grl
+    sdk install gradle
    ```
 
 ## Getting Started
